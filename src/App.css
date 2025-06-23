@@ -1,0 +1,101 @@
+/* Base reset and box-sizing */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Prevent vertical scroll from background overflow */
+html, body {
+  height: 100%;
+  overflow-x: hidden;
+}
+
+/* App container with min-height fix */
+.App {
+  text-align: center;
+  min-height: 100vh;
+  padding: 2rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(to right, #f0f4f8, #d9e2ec);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+/* Title */
+h1 {
+  color: #1a202c;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+/* Dropdowns */
+select {
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  margin-left: 0.5rem;
+}
+
+/* Button with hover effect */
+button {
+  padding: 0.5rem 1rem;
+  background: #0070f3;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  margin-top: 1rem;
+}
+
+button:hover {
+  background: #0051d4;
+}
+
+/* Chart container */
+.StockChart {
+  margin-top: 2rem;
+  max-width: 650px;
+  width: 100%;
+  background-color: #ffffff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.StockChart:hover {
+  transform: scale(1.02);
+}
+
+/* Text content */
+p {
+  font-size: 1.1rem;
+  color: #2d3748;
+  margin-top: 1rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .App {
+    padding: 1rem;
+    font-size: 0.95rem;
+  }
+
+  select,
+  button {
+    width: 100%;
+    margin-top: 0.5rem;
+    margin-left: 0;
+  }
+
+  .StockChart {
+    padding: 1rem;
+    max-width: 100%;
+  }
+}
