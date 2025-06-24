@@ -24,6 +24,7 @@ const API_URL = 'https://stockback-9n25.onrender.com';
 function App() {
   const [symbol, setSymbol] = useState('TSLA');
   const [priceUSD, setPriceUSD] = useState(null);
+  const [predictedPrice, setPredictedPrice] = useState(null);
   const [loading, setLoading] = useState(false);
   const [currency, setCurrency] = useState('USD');
   const [history, setHistory] = useState({ dates: [], prices: [] });
@@ -50,13 +51,29 @@ function App() {
     }
   };
 
+  const fetchPrediction = async () => {
+    try {
+      const res = await fetch(`${API_URL}/api/stock/${symbol}/predict`);
+      const data = await res.json();
+      if (data.predicted_price) {
+        setPredictedPrice(parseFloat(data.predicted_price));
+      } else {
+        setPredictedPrice(null);
+      }
+    } catch (err) {
+      setPredictedPrice(null);
+    }
+  };
+
   useEffect(() => {
     fetchStock();
     fetchHistory();
+    fetchPrediction();
   }, [symbol]);
 
   const currentCurrency = currencyOptions.find((c) => c.value === currency);
   const convertedPrice = priceUSD ? (priceUSD * currentCurrency.rate).toFixed(2) : null;
+  const convertedPrediction = predictedPrice ? (predictedPrice * currentCurrency.rate).toFixed(2) : null;
 
   return (
     <div className="App">
@@ -102,6 +119,12 @@ function App() {
         <p style={{ marginTop: '1rem' }}>
           Current Price of <strong>{symbol}</strong>: {currentCurrency.label.split(' ')[1]}
           {convertedPrice}
+        </p>
+      )}
+
+      {convertedPrediction && (
+        <p style={{ marginTop: '0.5rem', color: '#008080', fontWeight: 'bold' }}>
+          🔮 Predicted Price for Tomorrow: {currentCurrency.label.split(' ')[1]}{convertedPrediction}
         </p>
       )}
 
